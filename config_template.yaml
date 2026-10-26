@@ -2,3 +2,5 @@ dirs:
   wikidump: ".../enwiktionary-latest-pages-articles-multistream.xml.bz2"
   index: ".../enwiktionary-latest-pages-articles-multistream-index.txt.bz2"
   index_db: ".../enwiktionary-latest-pages-articles-multistream-index.db"
+
+  sample_page: ""

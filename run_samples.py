@@ -1,4 +1,4 @@
-from samples import sample1
+from samples import sample1, sample_headers, sample_headers_reverse
 
 if __name__ == "__main__":
-    sample1.main()
+    sample_headers_reverse.main()

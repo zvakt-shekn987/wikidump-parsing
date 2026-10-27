@@ -2,7 +2,6 @@ import re
 import yaml
 
 YAML_INDENT = '  '
-YAML_HYPHEN = ''
 CHAR_QUOTE = '"'
 
 TEXT_RE = re.compile(
@@ -45,10 +44,8 @@ def text_to_yaml(text, title, *args, linebreak_placeholder="¶"):
     if not text:
         text = ''
 
-    text = text.replace('\n', '¶') 
-    text = text.replace('¶=', '\n=')
-
-    # text = HEAD_RIGHT.sub(f": {CHAR_QUOTE}", text)  # left quote
+    text = text.replace('\n', linebreak_placeholder) 
+    text = text.replace(f'{linebreak_placeholder}=', '\n=')
 
     text = HEAD_RIGHT.sub(lambda m: f": "
                          + "\n" + YAML_INDENT
@@ -56,8 +53,6 @@ def text_to_yaml(text, title, *args, linebreak_placeholder="¶"):
                          + f"CONTENT: {CHAR_QUOTE}" 
                          ,text)
 
-    # text = text.replace('\n=', '\n-=')
-    # text = HEAD_LEFT.sub(r"\n\1- ", text)
     text = HEAD_LEFT.sub(lambda m: '\n' 
                          + YAML_INDENT * (len(m.group()) - 2) 
                          + CHAR_QUOTE
@@ -65,8 +60,7 @@ def text_to_yaml(text, title, *args, linebreak_placeholder="¶"):
     
     text = text.replace('\n', f"{CHAR_QUOTE}\n") # right quote
     text = text.replace(f": {CHAR_QUOTE}\n", f"{CHAR_QUOTE}:\n")
-    # text = re.sub()
 
-    text = f"{CHAR_QUOTE}{title}{CHAR_QUOTE}:\n{YAML_INDENT}{YAML_HYPHEN}{f"CONTENT: {CHAR_QUOTE}" }{text}{CHAR_QUOTE}"
+    text = f"{CHAR_QUOTE}{title}{CHAR_QUOTE}:\n{YAML_INDENT}{f"CONTENT: {CHAR_QUOTE}" }{text}{CHAR_QUOTE}"
 
     return text

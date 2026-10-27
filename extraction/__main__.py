@@ -3,6 +3,7 @@ import argparse
 
 from . import functions as fu
 from . import functions_sql as fusql
+from . import functions_headers as fuhead
 
 def main():
 
@@ -13,6 +14,15 @@ def main():
         help="Turns the .txt.bz2 index into SQL. Run once before any lookup.")
     p_bz2_to_sql.set_defaults(func=fusql.bz2_to_sql)    
 
+    p_all_headers = subparsers.add_parser("all-headers",
+        help="Generates list of headers from dump. Run once.")
+    p_all_headers.set_defaults(func=fuhead.extract_headers)  
+
+    p_reverse_headers = subparsers.add_parser("reverse-headers",
+        help="Header list (title/headers) into header/titles. Run once. \
+            Also creates value count summary.")
+    p_reverse_headers.set_defaults(func=fuhead.reverse_list)  
+    
     p_ext_page = subparsers.add_parser("ext-page")
     p_ext_page.add_argument("-b", "--byte_offset")
     p_ext_page.add_argument("-p", "--page_id")
